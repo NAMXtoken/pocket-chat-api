@@ -1,1 +1,4 @@
 project_id = "uztaivbsrtalpjvsgyyv"
+
+[functions.twilio-webhook]
+verify_jwt = false
