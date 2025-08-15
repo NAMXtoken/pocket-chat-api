@@ -71,13 +71,12 @@ Deno.serve(async (req) => {
     const twilioSig = req.headers.get("X-Twilio-Signature");
     const authToken = (Deno.env.get("TWILIO_AUTH_TOKEN") || "").trim();
     if (twilioSig && authToken) {
-      const url = new URL(req.url);
-      const baseUrl = `${url.origin}${url.pathname}`; // Twilio signs without query string
-      // Build concatenated string: URL + sorted param key/value
+      const fullUrl = req.url; // Twilio requires exact full URL (including query string)
+      // Build concatenated string: full URL + sorted param key/value
       const entries: [string, string][] = [];
       for (const [k, v] of form!.entries()) entries.push([k, String(v)]);
       entries.sort((a, b) => a[0].localeCompare(b[0]));
-      const concatenated = baseUrl + entries.map(([k, v]) => `${k}${v}`).join("");
+      const concatenated = fullUrl + entries.map(([k, v]) => `${k}${v}`).join("");
       const expected = await hmacSha1Base64(authToken, concatenated);
       if (expected !== twilioSig) {
         console.warn("Twilio signature mismatch", { expected, got: twilioSig });
