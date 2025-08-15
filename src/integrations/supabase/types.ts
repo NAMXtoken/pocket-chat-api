@@ -14,6 +14,86 @@ export type Database = {
   }
   public: {
     Tables: {
+      contacts: {
+        Row: {
+          created_at: string
+          display_name: string | null
+          id: string
+          last_message_at: string | null
+          metadata: Json | null
+          phone_number: string
+          platform: Database["public"]["Enums"]["messaging_platform"]
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          last_message_at?: string | null
+          metadata?: Json | null
+          phone_number: string
+          platform: Database["public"]["Enums"]["messaging_platform"]
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          last_message_at?: string | null
+          metadata?: Json | null
+          phone_number?: string
+          platform?: Database["public"]["Enums"]["messaging_platform"]
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      messages: {
+        Row: {
+          body: string | null
+          contact_id: string
+          direction: Database["public"]["Enums"]["message_direction"]
+          id: string
+          media_urls: string[]
+          platform: Database["public"]["Enums"]["messaging_platform"]
+          provider_message_id: string | null
+          raw_payload: Json | null
+          received_at: string
+          status: string | null
+        }
+        Insert: {
+          body?: string | null
+          contact_id: string
+          direction: Database["public"]["Enums"]["message_direction"]
+          id?: string
+          media_urls?: string[]
+          platform: Database["public"]["Enums"]["messaging_platform"]
+          provider_message_id?: string | null
+          raw_payload?: Json | null
+          received_at?: string
+          status?: string | null
+        }
+        Update: {
+          body?: string | null
+          contact_id?: string
+          direction?: Database["public"]["Enums"]["message_direction"]
+          id?: string
+          media_urls?: string[]
+          platform?: Database["public"]["Enums"]["messaging_platform"]
+          provider_message_id?: string | null
+          raw_payload?: Json | null
+          received_at?: string
+          status?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "messages_contact_id_fkey"
+            columns: ["contact_id"]
+            isOneToOne: false
+            referencedRelation: "contacts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           created_at: string
@@ -123,7 +203,8 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      message_direction: "inbound" | "outbound"
+      messaging_platform: "whatsapp" | "telegram" | "line" | "sms"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -250,6 +331,9 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      message_direction: ["inbound", "outbound"],
+      messaging_platform: ["whatsapp", "telegram", "line", "sms"],
+    },
   },
 } as const
