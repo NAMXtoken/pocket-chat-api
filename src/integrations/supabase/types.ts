@@ -14,7 +14,86 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      contacts: {
+        Row: {
+          created_at: string
+          display_name: string | null
+          id: string
+          metadata: Json
+          phone_number: string
+          platform: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          metadata?: Json
+          phone_number: string
+          platform: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          metadata?: Json
+          phone_number?: string
+          platform?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      messages: {
+        Row: {
+          body: string | null
+          contact_id: string
+          created_at: string
+          direction: string
+          id: string
+          media_urls: string[]
+          platform: string
+          provider_message_id: string | null
+          raw_payload: Json
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          body?: string | null
+          contact_id: string
+          created_at?: string
+          direction: string
+          id?: string
+          media_urls?: string[]
+          platform: string
+          provider_message_id?: string | null
+          raw_payload?: Json
+          status: string
+          updated_at?: string
+        }
+        Update: {
+          body?: string | null
+          contact_id?: string
+          created_at?: string
+          direction?: string
+          id?: string
+          media_urls?: string[]
+          platform?: string
+          provider_message_id?: string | null
+          raw_payload?: Json
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "messages_contact_id_fkey"
+            columns: ["contact_id"]
+            isOneToOne: false
+            referencedRelation: "contacts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
