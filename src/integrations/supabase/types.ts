@@ -14,187 +14,7 @@ export type Database = {
   }
   public: {
     Tables: {
-      contacts: {
-        Row: {
-          created_at: string
-          display_name: string | null
-          id: string
-          last_message_at: string | null
-          metadata: Json | null
-          phone_number: string
-          platform: Database["public"]["Enums"]["messaging_platform"]
-          updated_at: string
-        }
-        Insert: {
-          created_at?: string
-          display_name?: string | null
-          id?: string
-          last_message_at?: string | null
-          metadata?: Json | null
-          phone_number: string
-          platform: Database["public"]["Enums"]["messaging_platform"]
-          updated_at?: string
-        }
-        Update: {
-          created_at?: string
-          display_name?: string | null
-          id?: string
-          last_message_at?: string | null
-          metadata?: Json | null
-          phone_number?: string
-          platform?: Database["public"]["Enums"]["messaging_platform"]
-          updated_at?: string
-        }
-        Relationships: []
-      }
-      messages: {
-        Row: {
-          body: string | null
-          contact_id: string
-          direction: Database["public"]["Enums"]["message_direction"]
-          id: string
-          media_urls: string[]
-          platform: Database["public"]["Enums"]["messaging_platform"]
-          provider_message_id: string | null
-          raw_payload: Json | null
-          received_at: string
-          status: string | null
-        }
-        Insert: {
-          body?: string | null
-          contact_id: string
-          direction: Database["public"]["Enums"]["message_direction"]
-          id?: string
-          media_urls?: string[]
-          platform: Database["public"]["Enums"]["messaging_platform"]
-          provider_message_id?: string | null
-          raw_payload?: Json | null
-          received_at?: string
-          status?: string | null
-        }
-        Update: {
-          body?: string | null
-          contact_id?: string
-          direction?: Database["public"]["Enums"]["message_direction"]
-          id?: string
-          media_urls?: string[]
-          platform?: Database["public"]["Enums"]["messaging_platform"]
-          provider_message_id?: string | null
-          raw_payload?: Json | null
-          received_at?: string
-          status?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "messages_contact_id_fkey"
-            columns: ["contact_id"]
-            isOneToOne: false
-            referencedRelation: "contacts"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      profiles: {
-        Row: {
-          created_at: string
-          display_name: string | null
-          id: string
-          updated_at: string
-          user_id: string
-        }
-        Insert: {
-          created_at?: string
-          display_name?: string | null
-          id?: string
-          updated_at?: string
-          user_id: string
-        }
-        Update: {
-          created_at?: string
-          display_name?: string | null
-          id?: string
-          updated_at?: string
-          user_id?: string
-        }
-        Relationships: []
-      }
-      transactions: {
-        Row: {
-          amount: number | null
-          created_at: string | null
-          currency: string | null
-          date_time: string | null
-          fee: number | null
-          from_name: string | null
-          id: string
-          image_name: string | null
-          ocr_text: string | null
-          recipient_type: string | null
-          ref_no: string | null
-          status: string | null
-          to_name: string | null
-          user_id: string | null
-        }
-        Insert: {
-          amount?: number | null
-          created_at?: string | null
-          currency?: string | null
-          date_time?: string | null
-          fee?: number | null
-          from_name?: string | null
-          id?: string
-          image_name?: string | null
-          ocr_text?: string | null
-          recipient_type?: string | null
-          ref_no?: string | null
-          status?: string | null
-          to_name?: string | null
-          user_id?: string | null
-        }
-        Update: {
-          amount?: number | null
-          created_at?: string | null
-          currency?: string | null
-          date_time?: string | null
-          fee?: number | null
-          from_name?: string | null
-          id?: string
-          image_name?: string | null
-          ocr_text?: string | null
-          recipient_type?: string | null
-          ref_no?: string | null
-          status?: string | null
-          to_name?: string | null
-          user_id?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "transactions_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: true
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      users: {
-        Row: {
-          created_at: string | null
-          email: string
-          id: string
-        }
-        Insert: {
-          created_at?: string | null
-          email?: string
-          id?: string
-        }
-        Update: {
-          created_at?: string | null
-          email?: string
-          id?: string
-        }
-        Relationships: []
-      }
+      [_ in never]: never
     }
     Views: {
       [_ in never]: never
@@ -203,8 +23,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      message_direction: "inbound" | "outbound"
-      messaging_platform: "whatsapp" | "telegram" | "line" | "sms"
+      [_ in never]: never
     }
     CompositeTypes: {
       [_ in never]: never
@@ -331,9 +150,6 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {
-      message_direction: ["inbound", "outbound"],
-      messaging_platform: ["whatsapp", "telegram", "line", "sms"],
-    },
+    Enums: {},
   },
 } as const
